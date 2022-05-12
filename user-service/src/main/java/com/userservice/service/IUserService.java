@@ -1,6 +1,8 @@
 package com.userservice.service;
 
 import com.userservice.entity.User;
+import com.userservice.models.Task;
+
 
 public interface IUserService {
 
@@ -13,4 +15,6 @@ public interface IUserService {
     public void delete(Long id);
 
     public User getById(Long id);
+
+    public Iterable<Task> getUserTasks(Long id);
 }

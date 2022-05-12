@@ -2,6 +2,7 @@ package com.userservice.controller;
 
 import com.userservice.entity.User;
 import com.userservice.entity.UserDTO;
+import com.userservice.models.Task;
 import com.userservice.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class UserController {
     @GetMapping()
     public ResponseEntity<Iterable<User>> getAll() {
         var users = userService.getAll();
-        return users != null ? ResponseEntity.ok(users) : ResponseEntity.noContent().build();
+        return users.spliterator().estimateSize() > 0 ? ResponseEntity.ok(users) : ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
@@ -37,8 +38,20 @@ public class UserController {
         if (id == 0 || id == null)
             return ResponseEntity.badRequest().build();
 
-        var user = userService.getById(id);
-        return ResponseEntity.ok(user);
+        var foundUser = userService.getById(id);
+        return foundUser != null ? ResponseEntity.ok(foundUser) : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}/tasks")
+    public ResponseEntity<Iterable<Task>> getUserTasks(@PathVariable Long id) {
+        if (id == 0 || id == null)
+            return ResponseEntity.badRequest().build();
+        var foundUser = userService.getById(id);
+        if (foundUser == null)
+            return ResponseEntity.notFound().build();
+
+        var userTasks = userService.getUserTasks(id);
+        return userTasks != null ? ResponseEntity.ok(userTasks) : ResponseEntity.status(503).build();
     }
 
     @PostMapping("/create")
