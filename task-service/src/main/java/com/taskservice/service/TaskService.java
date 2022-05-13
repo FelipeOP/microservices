@@ -48,4 +48,11 @@ public class TaskService implements ITaskService {
         return taskRepository.findAll();
     }
 
+    @Override
+    public Task complete(Long id) {
+        var task = taskRepository.findById(id).orElseThrow();
+        task.setDone(!task.isDone());
+        return taskRepository.save(task);
+    }
+
 }

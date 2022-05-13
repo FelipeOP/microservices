@@ -39,6 +39,15 @@ public class TaskController {
                 : ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/complete")
+    public ResponseEntity<Task> complete(@RequestParam(value = "id") Long id) {
+        if (id == 0 || id == null)
+            return ResponseEntity.badRequest().build();
+
+        var task = taskService.complete(id);
+        return task != null ? ResponseEntity.ok(task) : ResponseEntity.notFound().build();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Task> getById(@PathVariable Long id) {
         if (id == 0 || id == null)

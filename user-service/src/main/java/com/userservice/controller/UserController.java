@@ -56,7 +56,7 @@ public class UserController {
 
     @PostMapping("/create")
     public ResponseEntity<User> create(@RequestBody UserDTO user) {
-        if (user == null)
+        if (user == null || user.getId() == null || user.getId() == 0)
             return ResponseEntity.badRequest().build();
 
         User persistenceUser = new User(user);
@@ -67,7 +67,7 @@ public class UserController {
 
     @PutMapping("/update")
     public ResponseEntity<User> update(@RequestBody UserDTO user) {
-        if (user == null)
+        if (user == null || user.getId() == null || user.getId() == 0)
             return ResponseEntity.badRequest().build();
         var foundUser = userService.getById(user.getId());
         if (foundUser == null)

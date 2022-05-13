@@ -16,4 +16,6 @@ public interface ITaskService {
 
     public Task getById(Long id);
 
+    public Task complete(Long id);
+
 }
