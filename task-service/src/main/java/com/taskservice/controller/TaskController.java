@@ -59,7 +59,7 @@ public class TaskController {
 
     @PostMapping("/create")
     public ResponseEntity<Task> create(@RequestBody TaskDTO task) {
-        if (task == null)
+        if (task == null || task.getId() == 0 || task.getId() == null)
             return ResponseEntity.badRequest().build();
 
         Task userTask = new Task(task);
@@ -70,7 +70,7 @@ public class TaskController {
 
     @PutMapping("/update")
     public ResponseEntity<Task> update(@RequestBody TaskDTO task) {
-        if (task == null)
+        if (task == null || task.getId() == 0 || task.getId() == null)
             return ResponseEntity.badRequest().build();
         var foundTask = taskService.getById(task.getId());
         if (foundTask == null)
