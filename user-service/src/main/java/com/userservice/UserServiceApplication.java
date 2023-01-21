@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @Configuration
 @EnableJpaRepositories({ "com.userservice.repository" })
-@ComponentScan({ "com.userservice.controller", "com.userservice.service", "user.userservice.configuration" })
+@ComponentScan({ "com.userservice.controller", "com.userservice.service", "com.userservice.configuration" })
 @EntityScan("com.userservice.entity")
 public class UserServiceApplication {
 

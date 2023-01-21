@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/users")
+@RequestMapping("api/v1/users/1")
 public class UserController {
 
     @Autowired
@@ -58,7 +58,7 @@ public class UserController {
     public ResponseEntity<User> create(@RequestBody UserDTO user) {
         if (user == null || user.getId() == null || user.getId() == 0)
             return ResponseEntity.badRequest().build();
-
+        
         User persistenceUser = new User(user);
         userService.create(persistenceUser);
         log.info("User created successfully");

@@ -17,7 +17,7 @@ public class Task {
     @Id
     // @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
+    
     private String title;
     private String description;
     private boolean isDone = false;
